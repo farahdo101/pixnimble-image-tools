@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Open-source image utilities from PixNimble. Resize, convert and inspect image formats locally in your browser."
+    />
+    <meta name="theme-color" content="#f6f7fb" />
+    <link rel="icon" href="./mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Image Tools Playground · PixNimble</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="https://pixnimble.com"
+        ><img src="./mark.svg" width="32" height="32" alt="" />PixNimble<span>
+          / open source</span
+        ></a
+      >
+      <a class="site-link" href="https://pixnimble.com"
+        >Full toolkit <span aria-hidden="true">↗</span></a
+      >
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow"><span class="dot"></span> SMALL TOOLS. ALL ON YOUR DEVICE.</p>
+        <h1>A little less file.<br />A lot more possibility.</h1>
+        <p class="lede">
+          Resize, convert and inspect your images. A small, open-source slice of
+          <a href="https://pixnimble.com">PixNimble</a>, built for curious makers.
+        </p>
+        <div class="tags">
+          <span>No image uploads</span><span>No dependencies</span><span>MIT licensed</span>
+        </div>
+      </section>
+      <div class="workspace">
+        <section class="panel editor" aria-labelledby="editor-title">
+          <div class="section-title">
+            <h2 id="editor-title">Make it fit.</h2>
+            <span class="step">01 / TRANSFORM</span>
+          </div>
+          <form id="transform-form">
+            <fieldset id="controls">
+              <label class="upload" for="image-file">
+                <span class="upload-symbol" aria-hidden="true">↥</span>
+                <strong>Choose an image</strong>
+                <span>JPEG, PNG or WebP · up to 40 MiB</span>
+                <input
+                  id="image-file"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  required
+                />
+              </label>
+              <p id="file-info" class="file-info">Your image stays in this browser.</p>
+              <div class="fields">
+                <label
+                  >Width <span>px</span
+                  ><input
+                    id="width"
+                    type="number"
+                    value="1200"
+                    min="1"
+                    max="8192"
+                    step="1"
+                    required
+                /></label>
+                <label
+                  >Height <span>px</span
+                  ><input
+                    id="height"
+                    type="number"
+                    value="800"
+                    min="1"
+                    max="8192"
+                    step="1"
+                    required
+                /></label>
+                <label
+                  >Resize mode<select id="mode">
+                    <option value="contain">Fit inside · keep ratio</option>
+                    <option value="cover">Fill frame · crop center</option>
+                    <option value="stretch">Stretch to exact size</option>
+                  </select></label
+                >
+                <label
+                  >Save as<select id="format">
+                    <option value="image/webp">WebP</option>
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/png">PNG</option>
+                  </select></label
+                >
+              </div>
+              <label class="quality-label" for="quality"
+                >Quality <output id="quality-value" for="quality">85%</output></label
+              >
+              <input id="quality" type="range" min="1" max="100" value="85" />
+              <p id="quality-hint" class="hint">JPEG &amp; WebP quality. PNG is lossless.</p>
+              <button class="primary" type="submit">
+                Create image <span aria-hidden="true">→</span>
+              </button>
+            </fieldset>
+          </form>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </section>
+        <section class="panel preview-panel" aria-labelledby="preview-title">
+          <div class="section-title">
+            <h2 id="preview-title">The result.</h2>
+            <span class="step">02 / TAKE IT WITH YOU</span>
+          </div>
+          <div id="preview" class="preview">
+            <div id="empty-state" class="empty-state">
+              <div class="art" aria-hidden="true">
+                <div class="art-sun"></div>
+                <div class="art-hill"></div>
+              </div>
+              <strong>Room for your next image.</strong>
+              <p>Your finished image will appear here.</p>
+            </div>
+            <img id="result-image" alt="Processed image preview" hidden />
+          </div>
+          <div id="result-details" class="result-details" hidden>
+            <p id="result-meta"></p>
+            <a id="download" class="download">Download image <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="preview-note">
+            One still image at a time. Metadata and animation are not preserved. JPEG uses a white
+            background.
+          </p>
+        </section>
+      </div>
+      <section class="utility-grid" aria-label="Developer utilities">
+        <article class="panel utility">
+          <p class="step">03 / DIMENSIONS</p>
+          <h2>Find the right proportions.</h2>
+          <p>Calculate an aspect ratio and a size that fits inside your target. No image needed.</p>
+          <form id="ratio-form">
+            <div class="fields">
+              <label
+                >Original width<input
+                  id="source-width"
+                  type="number"
+                  min="1"
+                  max="1000000"
+                  step="1"
+                  value="1920"
+                  required
+              /></label>
+              <label
+                >Original height<input
+                  id="source-height"
+                  type="number"
+                  min="1"
+                  max="1000000"
+                  step="1"
+                  value="1080"
+                  required
+              /></label>
+              <label
+                >Target width<input
+                  id="target-width"
+                  type="number"
+                  min="1"
+                  max="1000000"
+                  step="1"
+                  value="800"
+                  required
+              /></label>
+              <label
+                >Target height<input
+                  id="target-height"
+                  type="number"
+                  min="1"
+                  max="1000000"
+                  step="1"
+                  value="800"
+                  required
+              /></label>
+            </div>
+            <button class="secondary" type="submit">Calculate size</button>
+          </form>
+          <p id="ratio-result" class="utility-result" role="status">16:9 → 800 × 450 px</p>
+        </article>
+        <article class="panel utility">
+          <p class="step">04 / FILE SIGNATURE</p>
+          <h2>Look beyond the extension.</h2>
+          <p>Inspect the header bytes of JPEG, PNG, WebP, GIF, AVIF and HEIC files.</p>
+          <label class="inspect-label" for="inspect-file"
+            >Choose a file to inspect<input id="inspect-file" type="file"
+          /></label>
+          <p id="inspect-result" class="utility-result" role="status">Waiting for a file.</p>
+          <p class="hint">
+            Header detection is a format hint, not a guarantee that a file is safe or decodable.
+            Generic HEIF containers may return unknown.
+          </p>
+        </article>
+      </section>
+      <aside class="cta">
+        <div>
+          <h2>More tools. Same simple idea.</h2>
+          <p>Explore the full PixNimble toolkit for compression, cropping and more.</p>
+        </div>
+        <a href="https://pixnimble.com">Visit PixNimble <span aria-hidden="true">↗</span></a>
+      </aside>
+    </main>
+    <footer>
+      <span>Made by <a href="https://pixnimble.com">PixNimble</a>.</span
+      ><span>Open source. Local processing. Yours to build on.</span>
+    </footer>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

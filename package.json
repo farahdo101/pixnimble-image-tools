@@ -1,0 +1,30 @@
+{
+  "name": "pixnimble-image-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small, dependency-free image utilities from PixNimble: dimensions, file signatures, browser resizing and conversion.",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://pixnimble.com",
+  "exports": {
+    ".": "./src/index.js",
+    "./browser": "./src/browser.js"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check src/index.js && node --check src/browser.js && node --check demo/app.js && node --check scripts/serve.mjs && npm test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "pixnimble",
+    "image-resizer",
+    "image-converter",
+    "image-dimensions",
+    "mime-type",
+    "canvas",
+    "privacy"
+  ]
+}
